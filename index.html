@@ -1,45 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Snake Game | Suranjan Chaudhari</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <h1 class="title">🐍 Snake Game</h1>
+  <p class="subtitle">Arrow Keys (PC) | Touch Controls (Mobile)</p>
 
-<h1 class="title">🐍 Snake Game</h1>
-<p class="subtitle">Arrow Keys (PC) | Buttons / Swipe (Mobile)</p>
+  <button id="startBtn">▶ START GAME</button>
 
-<button id="startBtn">▶ START GAME</button>
+  <div class="game-wrapper">
+    <canvas id="game" width="400" height="400"></canvas>
 
-<div class="game-container">
-  <canvas id="game" width="400" height="400"></canvas>
-
-  <!-- GAME OVER OVERLAY -->
-  <div id="gameOver">
-    <h2>💀 GAME OVER</h2>
-    <p id="finalScore"></p>
-    <button onclick="startGame()">🔄 PLAY AGAIN</button>
+    <!-- GAME OVER OVERLAY -->
+    <div id="gameOver">
+      <h2>💀 GAME OVER</h2>
+      <p id="finalScore"></p>
+      <button onclick="startGame()">🔄 PLAY AGAIN</button>
+    </div>
   </div>
-</div>
 
-<div class="controls">
-  <button onclick="setDir('UP')">⬆️</button>
-  <button onclick="setDir('LEFT')">⬅️</button>
-  <button onclick="setDir('DOWN')">⬇️</button>
-  <button onclick="setDir('RIGHT')">➡️</button>
-</div>
+  <!-- MOBILE CONTROLS -->
+  <div class="mobile-controls">
+    <div class="row">
+      <button onclick="setDir('UP')">⬆️</button>
+    </div>
+    <div class="row">
+      <button onclick="setDir('LEFT')">⬅️</button>
+      <button onclick="setDir('DOWN')">⬇️</button>
+      <button onclick="setDir('RIGHT')">➡️</button>
+    </div>
+    <button class="turbo-btn" onclick="turbo()">⚡ TURBO</button>
+  </div>
 
-<button onclick="turbo()">⚡ TURBO</button>
+  <div class="score-box">
+    <p id="score">Score: 0</p>
+    <p id="best">Best Score: 0</p>
+  </div>
 
-<p id="score">Score: 0</p>
-<p id="best">Best Score: 0</p>
+  <div class="skin-box">
+    <label>🎨 Snake Skin</label>
+    <select onchange="changeSkin(this.value)">
+      <option value="#22c55e">Green</option>
+      <option value="#3b82f6">Blue</option>
+      <option value="#f97316">Orange</option>
+      <option value="#ec4899">Pink</option>
+    </select>
+  </div>
 
-<footer>
-  © Built by <b>Suranjan Chaudhari</b><br>
-  AI version inspired by DQN Snake Project
-</footer>
+  <footer>
+    © Built by <b>Suranjan Chaudhari</b><br/>
+    AI version inspired by DQN Snake Project
+  </footer>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+

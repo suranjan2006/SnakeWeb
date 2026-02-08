@@ -159,3 +159,4 @@ function endGame() {
   document.getElementById("gameOver").style.display = "flex";
   startBtn.style.display = "inline-block";
 }
+

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snake Game | Suranjan Chaudhari</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🐍 Snake Game</h1>
+<p>Use Arrow Keys (PC) or Swipe / Buttons (Mobile)</p>
+
+<button id="startBtn">▶ START GAME</button>
+
+<canvas id="game" width="400" height="400"></canvas>
+
+<div class="controls">
+  <button onclick="setDir('UP')">⬆️</button>
+  <button onclick="setDir('LEFT')">⬅️</button>
+  <button onclick="setDir('DOWN')">⬇️</button>
+  <button onclick="setDir('RIGHT')">➡️</button>
+  <button onclick="turbo()">⚡ TURBO</button>
+</div>
+
+<p id="score">Score: 0</p>
+<p id="best">Best Score: 0</p>
+
+<label>🎨 Snake Skin:</label>
+<select onchange="changeSkin(this.value)">
+  <option value="#22c55e">Green</option>
+  <option value="#3b82f6">Blue</option>
+  <option value="#f97316">Orange</option>
+  <option value="#ec4899">Pink</option>
+</select>
+
+<footer>
+  © Built by <b>Suranjan Chaudhari</b><br>
+  AI version inspired by DQN Snake Project
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+canvas {
+  background: #020617;
+  border: 3px solid #22c55e;
+  display: block;
+  margin: 15px auto;
+}
+
+.controls button {
+  font-size: 20px;
+  padding: 10px;
+  margin: 5px;
+}
+
+#startBtn {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 10px;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #9ca3af;
+}

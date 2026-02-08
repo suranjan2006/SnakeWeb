@@ -3,13 +3,16 @@ const ctx = canvas.getContext("2d");
 const startBtn = document.getElementById("startBtn");
 
 const box = 20;
-let snake, dir, food, score, speed, running, loop;
+let snake, dir, food, score, speed;
+let bestScore = localStorage.getItem("bestScore") || 0;
+let gameRunning = false;
+let loop;
+let skinColor = "#22c55e";
 let mouthOpen = false;
 
-let bestScore = localStorage.getItem("bestScore") || 0;
 document.getElementById("best").innerText = "Best Score: " + bestScore;
 
-// ---------------- START GAME ----------------
+// ---------- START GAME ----------
 function startGame() {
   clearInterval(loop);
   snake = [{ x: 200, y: 200 }];
@@ -17,7 +20,7 @@ function startGame() {
   food = randomFood();
   score = 0;
   speed = 120;
-  running = true;
+  gameRunning = true;
 
   document.getElementById("score").innerText = "Score: 0";
   document.getElementById("gameOver").style.display = "none";
@@ -28,9 +31,9 @@ function startGame() {
 
 startBtn.onclick = startGame;
 
-// ---------------- CONTROLS ----------------
+// ---------- CONTROLS ----------
 document.addEventListener("keydown", e => {
-  if (!running) return;
+  if (!gameRunning) return;
   if (e.key === "ArrowUp" && dir !== "DOWN") dir = "UP";
   if (e.key === "ArrowDown" && dir !== "UP") dir = "DOWN";
   if (e.key === "ArrowLeft" && dir !== "RIGHT") dir = "LEFT";
@@ -38,24 +41,26 @@ document.addEventListener("keydown", e => {
 });
 
 function setDir(d) {
-  if (!running) return;
+  if (!gameRunning) return;
   if (d === "UP" && dir !== "DOWN") dir = d;
   if (d === "DOWN" && dir !== "UP") dir = d;
   if (d === "LEFT" && dir !== "RIGHT") dir = d;
   if (d === "RIGHT" && dir !== "LEFT") dir = d;
 }
 
-// ---------------- FOOD ----------------
 function randomFood() {
   return {
     x: Math.floor(Math.random() * 20) * box,
-    y: Math.floor(Math.random() * 20) * box
+    y: Math.floor(Math.random() * 20) * box,
   };
 }
 
-// ---------------- TURBO ----------------
+function changeSkin(color) {
+  skinColor = color;
+}
+
 function turbo() {
-  if (!running || score <= 0) return;
+  if (!gameRunning || score <= 0) return;
   clearInterval(loop);
   speed = 60;
   score--;
@@ -66,14 +71,12 @@ function turbo() {
     clearInterval(loop);
     speed = 120;
     loop = setInterval(draw, speed);
-  }, 800);
+  }, 700);
 }
 
-// ---------------- DRAW HEAD ----------------
+// ---------- DRAW HEAD ----------
 function drawHead(x, y) {
-  ctx.fillStyle = "#22c55e";
-  ctx.shadowBlur = 15;
-  ctx.shadowColor = "#22c55e";
+  ctx.fillStyle = skinColor;
   ctx.fillRect(x, y, box, box);
 
   ctx.fillStyle = "white";
@@ -82,26 +85,18 @@ function drawHead(x, y) {
   ctx.arc(x + 14, y + 6, 3, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.fillStyle = "black";
-  ctx.beginPath();
-  ctx.arc(x + 6, y + 6, 1.5, 0, Math.PI * 2);
-  ctx.arc(x + 14, y + 6, 1.5, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.shadowBlur = 0;
-
   ctx.strokeStyle = "black";
-  ctx.lineWidth = 2;
   ctx.beginPath();
-  if (mouthOpen) ctx.arc(x + 10, y + 14, 6, 0, Math.PI);
-  else {
-    ctx.moveTo(x + 5, y + 14);
-    ctx.lineTo(x + 15, y + 14);
+  if (mouthOpen) {
+    ctx.arc(x + 10, y + 14, 5, 0, Math.PI);
+  } else {
+    ctx.moveTo(x + 6, y + 14);
+    ctx.lineTo(x + 14, y + 14);
   }
   ctx.stroke();
 }
 
-// ---------------- DRAW ----------------
+// ---------- DRAW ----------
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -137,17 +132,19 @@ function draw() {
 
   if (head.x === food.x && head.y === food.y) {
     mouthOpen = true;
-    setTimeout(() => mouthOpen = false, 200);
+    setTimeout(() => mouthOpen = false, 150);
     score++;
     document.getElementById("score").innerText = "Score: " + score;
     food = randomFood();
-  } else snake.pop();
+  } else {
+    snake.pop();
+  }
 }
 
-// ---------------- END GAME ----------------
+// ---------- END GAME ----------
 function endGame() {
   clearInterval(loop);
-  running = false;
+  gameRunning = false;
 
   if (score > bestScore) {
     bestScore = score;
@@ -159,4 +156,3 @@ function endGame() {
   document.getElementById("gameOver").style.display = "flex";
   startBtn.style.display = "inline-block";
 }
-

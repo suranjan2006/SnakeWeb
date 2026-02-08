@@ -1,53 +1,52 @@
-body {
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
+  touch-action: none;
+}
+
+body {
   background: radial-gradient(circle at top, #020617, #000);
-  color: #e5e7eb;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+  text-align: center;
+  overflow: hidden;
 }
 
 .title {
-  font-size: 32px;
   margin-top: 10px;
 }
 
 .subtitle {
-  color: #9ca3af;
-}
-
-.game-container {
-  position: relative;
-  width: 400px;
-  margin: auto;
-}
-
-canvas {
-  background: radial-gradient(circle, #020617, #000814);
-  border: 3px solid #22c55e;
-  box-shadow: 0 0 30px #22c55e;
-  display: block;
-}
-
-button {
-  padding: 10px 16px;
-  margin: 6px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+  opacity: 0.8;
+  font-size: 14px;
 }
 
 #startBtn {
-  font-size: 20px;
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
   background: #22c55e;
   color: black;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.controls button {
-  font-size: 18px;
+.game-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 
-/* GAME OVER ANIMATION */
+canvas {
+  border: 3px solid #22c55e;
+  box-shadow: 0 0 30px #22c55e;
+  background: #020617;
+}
+
+/* GAME OVER OVERLAY */
 #gameOver {
   position: absolute;
   inset: 0;
@@ -56,7 +55,7 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: zoomIn 0.6s ease;
+  animation: zoomIn 0.5s ease;
 }
 
 #gameOver h2 {
@@ -67,7 +66,7 @@ button {
 
 #gameOver p {
   font-size: 22px;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 @keyframes zoomIn {
@@ -75,9 +74,52 @@ button {
   to { transform: scale(1); opacity: 1; }
 }
 
-footer {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #9ca3af;
+/* SCORE */
+.score-box {
+  margin-top: 10px;
 }
 
+/* SKIN */
+.skin-box {
+  margin-top: 10px;
+}
+
+/* MOBILE CONTROLS */
+.mobile-controls {
+  margin-top: 15px;
+}
+
+.mobile-controls .row {
+  display: flex;
+  justify-content: center;
+}
+
+.mobile-controls button {
+  font-size: 22px;
+  margin: 5px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  background: #1e293b;
+  color: white;
+}
+
+.turbo-btn {
+  background: linear-gradient(45deg, orange, red);
+  font-weight: bold;
+}
+
+/* DESKTOP: hide mobile controls */
+@media (min-width: 768px) {
+  .mobile-controls {
+    display: none;
+  }
+}
+
+/* MOBILE FULLSCREEN */
+@media (max-width: 768px) {
+  canvas {
+    width: 90vw;
+    height: 90vw;
+  }
+}
